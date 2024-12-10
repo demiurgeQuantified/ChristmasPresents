@@ -1,0 +1,4 @@
+IG_UI_EN = {
+    IGUI_ChristmasPresents_OpenPresent = "Open Present",
+    IGUI_ChristmasPresents_WrapPresent = "Wrap Present",
+}

@@ -1,0 +1,12 @@
+module ChristmasPresents {
+    recipe Make Wrapping Paper {
+        Base.SheetPaper2,
+        Base.Glue=1,
+        keep Base.Crayons,
+
+        Result:WrappingPaper,
+        Time:100,
+        AnimNode:RipSheets,
+        Sound:FixWithTape,
+    }
+}

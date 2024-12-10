@@ -1,0 +1,5 @@
+ItemName_EN = {
+    ItemName_ChristmasPresents.Present = "Present",
+    ItemName_ChristmasPresents.WrappingPaper = "Wrapping Paper",
+    ItemName_ChristmasPresents.WrappingPaperRipped = "Ripped Wrapping Paper",
+}
