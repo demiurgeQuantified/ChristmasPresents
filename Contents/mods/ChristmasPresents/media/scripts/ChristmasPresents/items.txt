@@ -7,6 +7,7 @@ module ChristmasPresents {
         /* zero desired but zero is the default value that disables it */
         WeightEmpty = 0.0001,
         DisplayName = Wrapping Paper,
+        DisplayCategory = Household,
         Icon = ChristmasPresents/WrappingPaper,
         WorldStaticModel = WrappingPaper,
     }
@@ -14,6 +15,7 @@ module ChristmasPresents {
     item Present {
         Type = Normal,
         DisplayName = Present,
+        DisplayCategory = Container,
         Weight = 0.025,
         Icon = ChristmasPresents/Present,
         WorldStaticModel = Present,
