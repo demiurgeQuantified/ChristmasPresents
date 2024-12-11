@@ -19,7 +19,6 @@ module ChristmasPresents {
         WorldStaticModel = Present,
     }
 
-    /* TODO: usable as fuel? */
     item WrappingPaperRipped {
         Type = Normal,
         Weight = 0.025,
