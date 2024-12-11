@@ -1,8 +1,19 @@
 local TimedActionUtils = require("Starlit/client/timedActions/TimedActionUtils")
+local Serialise = require("Starlit/serialise/Serialise")
+
+---have to hardcode a type check because there's no getFirstTypeEvalArg lol
+---Returns false if the item is equal to arg. Used to exclude one specific item from a search.
+---@type ItemContainer_PredicateArg
+local predicateWrappingPaperNotEqual = function(item, arg)
+    return item ~= arg and item:getFullType() == "ChristmasPresents.WrappingPaper"
+end
+
+local PRESENT_BASE_WEIGHT = ScriptManager.instance:getItem("ChristmasPresents.Present"):getActualWeight()
 
 ---@class WrapPresentAction : ISBaseTimedAction
 ---@field character IsoGameCharacter
 ---@field item InventoryItem The item to wrap into a present at the end of the action.
+---@field wrappingPaper InventoryItem The wrapping paper used to wrap the present.
 ---@field handle integer The action sound's handle.
 local WrapPresentAction = ISBaseTimedAction:derive("WrapPresentAction")
 WrapPresentAction.__index = WrapPresentAction
@@ -14,7 +25,7 @@ WrapPresentAction.isValidStart = function(self)
         return false
     end
 
-    if not inventory:getFirstType("ChristmasPresents.WrappingPaper") then
+    if not inventory:getFirstEvalArg(predicateWrappingPaperNotEqual, self.item) then
         return false
     end
 
@@ -28,15 +39,25 @@ end
 WrapPresentAction.start = function(self)
     self.handle = self.character:getEmitter():playSound("FixWithTape")
     self:setActionAnim("RipSheets")
+    self.item:setJobType(getText("IGUI_JobType_WrapPresent"))
+    self.wrappingPaper = self.character:getInventory():getFirstEvalArg(predicateWrappingPaperNotEqual, self.item)
+    self.wrappingPaper:setJobType(getText("IGUI_JobType_WrapPresent"))
+end
+
+WrapPresentAction.update = function(self)
+    self.item:setJobDelta(self:getJobDelta())
+    self.wrappingPaper:setJobDelta(self:getJobDelta())
 end
 
 --- Code common to both stop and perform
 WrapPresentAction.stopCommon = function(self)
     self.character:getEmitter():stopSound(self.handle)
+    self.wrappingPaper:setJobDelta(0)
 end
 
 WrapPresentAction.stop = function(self)
     self:stopCommon()
+    self.item:setJobDelta(0)
     ISBaseTimedAction.stop(self)
 end
 
@@ -44,18 +65,17 @@ WrapPresentAction.perform = function(self)
     self:stopCommon()
 
     local inventory = self.character:getInventory()
-    local present = inventory:AddItem("ChristmasPresents.Present") --[[@as InventoryContainer]]
+    local present = inventory:AddItem("ChristmasPresents.Present")
 
     inventory:Remove(self.item)
 
-    -- -- creates the present's ByteData
-    -- present:storeInByteData(unsaveableObject)
-    -- ---@diagnostic disable-next-line: missing-parameter
-    -- item:save(present:getByteData())
+    present:getModData().ChristmasPresentContainedItem = Serialise.serialiseInventoryItem(self.item)
+    local presentWeight = PRESENT_BASE_WEIGHT + self.item:getActualWeight()
+    present:setActualWeight(presentWeight)
+    present:setWeight(presentWeight)
+    present:setCustomWeight(true)
 
-    present:getInventory():addItem(self.item)
-
-    inventory:getFirstType("ChristmasPresents.WrappingPaper"):Use()
+    self.wrappingPaper:Use()
 
     ISBaseTimedAction.perform(self)
 end
@@ -64,14 +84,11 @@ end
 ---@param character IsoGameCharacter The player to perform the action.
 ---@param item InventoryItem The item to wrap.
 WrapPresentAction.queueNew = function(character, item)
-    -- temporary hack to prevent grabbing items out of presents by wrapping twice
-    -- real solution is to serialise items
-    if item:getContainer():getContainingItem()
-            and item:getContainer():getContainingItem():getFullType() == "ChristmasPresents.Present" then
-        return
-    end
     TimedActionUtils.transfer(character, item)
-    TimedActionUtils.transferFirstType(character, "ChristmasPresents.WrappingPaper")
+    TimedActionUtils.transferFirstType(
+        character, "ChristmasPresents.WrappingPaper",
+        predicateWrappingPaperNotEqual, item)
+    TimedActionUtils.unequip(character, item)
     ISTimedActionQueue.add(WrapPresentAction.new(character, item))
 end
 

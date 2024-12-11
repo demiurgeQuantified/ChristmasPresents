@@ -1,59 +1,12 @@
 local OpenPresentAction = require("ChristmasPresents/OpenPresentAction")
 local WrapPresentAction = require("ChristmasPresents/WrapPresentAction")
+local Serialise = require("Starlit/serialise/Serialise")
 
----@type InventoryContainer
-local inventoryContainerMetatable = __classmetatables[InventoryContainer.class].__index
-
--- prevents looking inside the container
-
-local getCategory = inventoryContainerMetatable.getCategory
-inventoryContainerMetatable.getCategory = function(self)
-    if self:getFullType() == "ChristmasPresents.Present" then
-        return "Item"
-    end
-    return getCategory(self)
+---Returns false if the item is equal to arg. Used to exclude one specific item from a search.
+---@type ItemContainer_PredicateArg
+local predicateNotEqual = function(item, arg)
+    return item ~= arg
 end
-
----@class Item
----@field Capacity integer
-
-local PRESENT_CAPACITY = ScriptManager.instance:getItem("ChristmasPresents.Present").Capacity
-local PRESENT_WEIGHT = ScriptManager.instance:getItem("ChristmasPresents.Present"):getActualWeight()
-local tempArrayList = ArrayList.new()
-
--- prevents the tooltip from showing contained items
--- also hides the capacity
-
-local old_render = ISToolTipInv.render
----@diagnostic disable-next-line: duplicate-set-field
-ISToolTipInv.render = function(self)
-    if self.item:getFullType() == "ChristmasPresents.Present" then
-        local item = self.item --[[@as InventoryContainer]]
-
-        local inv = item:getInventory()
-        local items = inv:getItems()
-        local weight = item:getActualWeight()
-
-        -- have to fake the weight because the items are removed when the tooltip calculates it
-        item:setActualWeight(weight + item:getContentsWeight())
-        item:setCapacity(0)
-        inv:setItems(tempArrayList)
-
-        old_render(self)
-
-        inv:setItems(items)
-        item:setCapacity(PRESENT_CAPACITY)
-        item:setActualWeight(PRESENT_WEIGHT)
-    else
-        old_render(self)
-    end
-end
-
--- FIXME: timed actions can still access the item lol
--- bytedata bullshit didn't work out, write item serialisation for starlit
-
--- ---@diagnostic disable-next-line: param-type-mismatch
--- local unsaveableObject = IsoZombieGiblets.new(nil)
 
 local PresentsUI = {}
 
@@ -69,6 +22,14 @@ end
 ---@param present InventoryContainer The present being opened
 PresentsUI.onOpenPresent = function(player, present)
     OpenPresentAction.queueNew(player, present)
+end
+
+---Determines whether the "Wrap Present" context option should be shown for an item.
+---@param item InventoryItem The item to test.
+---@return boolean result Whether the item is valid.
+---@nodiscard
+PresentsUI.isValidPresent = function(item)
+    return Serialise.canSerialiseInventoryItemLosslessly(item)
 end
 
 ---@type Callback_OnFillInventoryObjectContextMenu
@@ -89,8 +50,9 @@ local addPresentsContextOptions = function(playerNum, context, items)
         context:addOptionOnTop(
             getText("IGUI_ChristmasPresents_OpenPresent"),
             player, PresentsUI.onOpenPresent, primaryItem)
-    elseif player:getInventory():containsTypeRecurse("ChristmasPresents.WrappingPaper")
-            and itemType ~= "ChristmasPresents.WrappingPaper" then
+    elseif player:getInventory():containsTypeEvalArgRecurse(
+        "ChristmasPresents.WrappingPaper", predicateNotEqual, primaryItem)
+            and PresentsUI.isValidPresent(primaryItem) then
         context:addOption(
             getText("IGUI_ChristmasPresents_WrapPresent"),
             player, PresentsUI.onWrapPresent, primaryItem)

@@ -2,42 +2,27 @@ module ChristmasPresents {
     item WrappingPaper {
         Type = Drainable,
         UseDelta = 0.25,
-        /* why is this default true lol */
         UseWhileEquipped = false,
         Weight = 0.1,
+        /* zero desired but zero is the default value that disables it */
+        WeightEmpty = 0.0001,
         DisplayName = Wrapping Paper,
         Icon = ChristmasPresents/WrappingPaper,
         WorldStaticModel = WrappingPaper,
     }
 
     item Present {
-        Type = Container,
-        Weight = 0.1,
+        Type = Normal,
         DisplayName = Present,
-        WeightReduction = 0,
-        /* ideally capacity would be 0 so it hides, but this causes the player to limp lol? */
-        Capacity = -1,
-    }   
+        Weight = 0.025,
+        Icon = ChristmasPresents/Present,
+        WorldStaticModel = Present,
+    }
 
-/*
- * using the container version for now, while it may cause some bugs with timed actions/some other mods,
- * i don't know yet if item serialisation/deserialisation can be writen and adequately tested in time
- * however if it is done in time it is pretty straight forward to implement it
- */
-
-/*
- *    item Present {
- *        Type = Normal,
- *        DisplayName = Present,
- *        Weight = 0.1,
- *        Icon = ChristmasPresents/Present,
- *        WorldStaticModel = Present,
- *    }
- */
-
+    /* TODO: usable as fuel? */
     item WrappingPaperRipped {
         Type = Normal,
-        Weight = 0.1,
+        Weight = 0.025,
         DisplayName = Ripped Wrapping Paper,
         DisplayCategory = Junk,
         Icon = ChristmasPresents/WrappingPaperRipped,

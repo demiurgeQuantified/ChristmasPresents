@@ -1,4 +1,5 @@
 local TimedActionUtils = require("Starlit/client/timedActions/TimedActionUtils")
+local Serialise = require("Starlit/serialise/Serialise")
 
 ---@class OpenPresentAction : ISBaseTimedAction
 ---@field character IsoGameCharacter
@@ -21,6 +22,11 @@ end
 OpenPresentAction.start = function(self)
     self.handle = self.character:getEmitter():playSound("ClothesRipping")
     self:setActionAnim("RipSheets")
+    self.present:setJobType(getText("IGUI_JobType_OpenPresent"))
+end
+
+OpenPresentAction.update = function(self)
+    self.present:setJobDelta(self:getJobDelta())
 end
 
 --- Code common to both stop and perform
@@ -30,20 +36,20 @@ end
 
 OpenPresentAction.stop = function(self)
     self:stopCommon()
+    self.present:setJobDelta(0)
     ISBaseTimedAction.stop(self)
 end
 
 OpenPresentAction.perform = function(self)
     self:stopCommon()
 
-    local presentItems = self.present:getInventory():getItems()
     local inventory = self.character:getInventory()
-    for i = presentItems:size()-1, 0, -1 do
-        inventory:addItem(presentItems:get(i))
-    end
+
     inventory:Remove(self.present)
 
-    --inventory:addItem(InventoryItem.loadItem(present:getByteData(), IsoWorld.WorldVersion))
+    inventory:addItem(
+        Serialise.deserialiseInventoryItem(
+            self.present:getModData().ChristmasPresentContainedItem)--[[@as InventoryItem]])
 
     inventory:AddItem("ChristmasPresents.WrappingPaperRipped")
 
