@@ -1,6 +1,7 @@
 local OpenPresentAction = require("ChristmasPresents/OpenPresentAction")
 local WrapPresentAction = require("ChristmasPresents/WrapPresentAction")
 local Serialise = require("Starlit/serialise/Serialise")
+local PresentDefinitions = require("ChristmasPresents/PresentDefinitions")
 
 ---Returns false if the item is equal to arg. Used to exclude one specific item from a search.
 ---@type ItemContainer_PredicateArg
@@ -44,9 +45,7 @@ local addPresentsContextOptions = function(playerNum, context, items)
         ---@cast primaryItem InventoryItem
     end
 
-    local itemType = primaryItem:getFullType()
-
-    if itemType == "ChristmasPresents.Present" then
+    if PresentDefinitions.lookup[primaryItem:getFullType()] then
         context:addOptionOnTop(
             getText("IGUI_ChristmasPresents_OpenPresent"),
             player, PresentsUI.onOpenPresent, primaryItem)

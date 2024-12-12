@@ -1,14 +1,15 @@
 local TimedActionUtils = require("Starlit/client/timedActions/TimedActionUtils")
 local Serialise = require("Starlit/serialise/Serialise")
+local PresentDefinitions = require("ChristmasPresents/PresentDefinitions")
 
----have to hardcode a type check because there's no getFirstTypeEvalArg lol
----Returns false if the item is equal to arg. Used to exclude one specific item from a search.
+local rand = newrandom()
+
+---Returns true if the item is a valid wrapping paper item and is not equal to arg.
+---Needed because there is no getFirstTypeEvalArg lol
 ---@type ItemContainer_PredicateArg
 local predicateWrappingPaperNotEqual = function(item, arg)
     return item ~= arg and item:getFullType() == "ChristmasPresents.WrappingPaper"
 end
-
-local PRESENT_BASE_WEIGHT = ScriptManager.instance:getItem("ChristmasPresents.Present"):getActualWeight()
 
 ---@class WrapPresentAction : ISBaseTimedAction
 ---@field character IsoGameCharacter
@@ -65,12 +66,13 @@ WrapPresentAction.perform = function(self)
     self:stopCommon()
 
     local inventory = self.character:getInventory()
-    local present = inventory:AddItem("ChristmasPresents.Present")
+    local present = inventory:AddItem(
+        PresentDefinitions.list[rand:random(#PresentDefinitions.list)])
 
     inventory:Remove(self.item)
 
     present:getModData().ChristmasPresentContainedItem = Serialise.serialiseInventoryItem(self.item)
-    local presentWeight = PRESENT_BASE_WEIGHT + self.item:getActualWeight()
+    local presentWeight = present:getActualWeight() + self.item:getActualWeight()
     present:setActualWeight(presentWeight)
     present:setWeight(presentWeight)
     present:setCustomWeight(true)
