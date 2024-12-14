@@ -1,6 +1,7 @@
 local TimedActionUtils = require("Starlit/client/timedActions/TimedActionUtils")
 local Serialise = require("Starlit/serialise/Serialise")
 
+---Timed action for opening a christmas present.
 ---@class OpenPresentAction : ISBaseTimedAction
 ---@field character IsoGameCharacter
 ---@field present InventoryContainer The present to open at the end of the action.
