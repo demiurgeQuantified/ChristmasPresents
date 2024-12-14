@@ -1,10 +1,36 @@
 module ChristmasPresents {
+    /*
+     * TODO: these all show in the context menu but they're indistinguishable, it doesn't show result
+     * they should just be crafting menu only but idk how to do that
+     */
     recipe Make Wrapping Paper {
         Base.SheetPaper2,
         Base.Glue=1,
         keep Base.Crayons,
 
-        Result:WrappingPaper,
+        Result:WrappingPaper_Red,
+        Time:100,
+        AnimNode:RipSheets,
+        Sound:FixWithTape,
+    }
+
+    recipe Make Wrapping Paper {
+        Base.SheetPaper2,
+        Base.Glue=1,
+        keep Base.Crayons,
+
+        Result:WrappingPaper_Green,
+        Time:100,
+        AnimNode:RipSheets,
+        Sound:FixWithTape,
+    }
+
+    recipe Make Wrapping Paper {
+        Base.SheetPaper2,
+        Base.Glue=1,
+        keep Base.Crayons,
+
+        Result:WrappingPaper_Blue,
         Time:100,
         AnimNode:RipSheets,
         Sound:FixWithTape,
