@@ -29,4 +29,16 @@ module ChristmasPresents {
         Icon = ChristmasPresents/WrappingPaperRipped,
         WorldStaticModel = WrappingPaperRipped,
     }
+
+    /*
+     * this item is added to distributions and automatically replaced by an actual
+     * wrapping paper item upon spawning to simplify loot chances
+     */
+    item Internal_WrappingPaperPlaceholder {
+        Type = Normal,
+        Weight = 0.1,
+        DisplayName = Christmas Presents Spawn Error,
+        Tooltip = This item should not spawn.,
+        DisplayCategory = Junk,
+    }
 }

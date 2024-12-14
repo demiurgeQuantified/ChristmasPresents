@@ -1,0 +1,6 @@
+Sandbox_EN = {
+    Sandbox_ChristmasPresents = "Christmas Presents",
+
+    Sandbox_ChristmasPresents_spawnItems = "Wrapping paper spawns in world",
+    Sandbox_ChristmasPresents_spawnItems_tooltip = "If enabled, wrapping paper can spawn in shops where toys would spawn. <br> If disabled, wrapping paper must be crafted.",
+}
