@@ -1,0 +1,16 @@
+module ChristmasPresents {
+    model Present_Red {
+        mesh = ChristmasPresents/Present,
+        texture = ChristmasPresents/Present_Red,
+    }
+
+    model Present_Green {
+        mesh = ChristmasPresents/Present,
+        texture = ChristmasPresents/Present_Green,
+    }
+
+    model Present_Blue {
+        mesh = ChristmasPresents/Present,
+        texture = ChristmasPresents/Present_Blue,
+    }
+}

@@ -1,5 +1,9 @@
 module ChristmasPresents {
-    item WrappingPaper {
+    /*
+     * wrapping papers
+     */
+
+    item WrappingPaper_Red {
         Type = Drainable,
         UseDelta = 0.25,
         UseWhileEquipped = false,
@@ -8,18 +12,70 @@ module ChristmasPresents {
         WeightEmpty = 0.0001,
         DisplayName = Wrapping Paper,
         DisplayCategory = Household,
-        Icon = ChristmasPresents/WrappingPaper,
-        WorldStaticModel = WrappingPaper,
+        Icon = ChristmasPresents/WrappingPaper_Red,
+        WorldStaticModel = WrappingPaper_Red,
     }
 
-    item Present {
+    item WrappingPaper_Green {
+        Type = Drainable,
+        UseDelta = 0.25,
+        UseWhileEquipped = false,
+        Weight = 0.1,
+        /* zero desired but zero is the default value that disables it */
+        WeightEmpty = 0.0001,
+        DisplayName = Wrapping Paper,
+        DisplayCategory = Household,
+        Icon = ChristmasPresents/WrappingPaper_Green,
+        WorldStaticModel = WrappingPaper_Green,
+    }
+
+    item WrappingPaper_Blue {
+        Type = Drainable,
+        UseDelta = 0.25,
+        UseWhileEquipped = false,
+        Weight = 0.1,
+        /* zero desired but zero is the default value that disables it */
+        WeightEmpty = 0.0001,
+        DisplayName = Wrapping Paper,
+        DisplayCategory = Household,
+        Icon = ChristmasPresents/WrappingPaper_Blue,
+        WorldStaticModel = WrappingPaper_Blue,
+    }
+
+    /*
+     * presents
+     */
+
+    item Present_Red {
         Type = Normal,
         DisplayName = Present,
         DisplayCategory = Container,
         Weight = 0.025,
-        Icon = ChristmasPresents/Present,
-        WorldStaticModel = Present,
+        Icon = ChristmasPresents/Present_Red,
+        WorldStaticModel = Present_Red,
     }
+
+    item Present_Green {
+        Type = Normal,
+        DisplayName = Present,
+        DisplayCategory = Container,
+        Weight = 0.025,
+        Icon = ChristmasPresents/Present_Green,
+        WorldStaticModel = Present_Green,
+    }
+
+    item Present_Blue {
+        Type = Normal,
+        DisplayName = Present,
+        DisplayCategory = Container,
+        Weight = 0.025,
+        Icon = ChristmasPresents/Present_Blue,
+        WorldStaticModel = Present_Blue,
+    }
+
+    /*
+     * misc
+     */
 
     item WrappingPaperRipped {
         Type = Normal,

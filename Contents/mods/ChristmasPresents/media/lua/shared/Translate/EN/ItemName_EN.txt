@@ -1,5 +1,9 @@
 ItemName_EN = {
-    ItemName_ChristmasPresents.Present = "Present",
-    ItemName_ChristmasPresents.WrappingPaper = "Wrapping Paper",
+    ItemName_ChristmasPresents.Present_Red = "Present",
+    ItemName_ChristmasPresents.Present_Green = "Present",
+    ItemName_ChristmasPresents.Present_Blue = "Present",
+    ItemName_ChristmasPresents.WrappingPaper_Red = "Wrapping Paper (Red)",
+    ItemName_ChristmasPresents.WrappingPaper_Green = "Wrapping Paper (Green)",
+    ItemName_ChristmasPresents.WrappingPaper_Blue = "Wrapping Paper (Blue)",
     ItemName_ChristmasPresents.WrappingPaperRipped = "Ripped Wrapping Paper",
 }
