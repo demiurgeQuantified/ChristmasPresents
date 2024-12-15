@@ -13,4 +13,19 @@ module ChristmasPresents {
         mesh = ChristmasPresents/Present,
         texture = ChristmasPresents/Present_Blue,
     }
+
+    model WrappingPaper_Red {
+        mesh = ChristmasPresents/WrappingPaper,
+        texture = ChristmasPresents/WrappingPaper_Red,
+    }
+
+    model WrappingPaper_Green {
+        mesh = ChristmasPresents/WrappingPaper,
+        texture = ChristmasPresents/WrappingPaper_Green,
+    }
+
+    model WrappingPaper_Blue {
+        mesh = ChristmasPresents/WrappingPaper,
+        texture = ChristmasPresents/WrappingPaper_Blue,
+    }
 }
