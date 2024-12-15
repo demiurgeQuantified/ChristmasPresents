@@ -52,7 +52,7 @@ OpenPresentAction.perform = function(self)
         Serialise.deserialiseInventoryItem(
             self.present:getModData().ChristmasPresentContainedItem)--[[@as InventoryItem]])
 
-    inventory:AddItem("ChristmasPresents.WrappingPaperRipped")
+    --inventory:AddItem("ChristmasPresents.WrappingPaperRipped")
 
     ISBaseTimedAction.perform(self)
 end
