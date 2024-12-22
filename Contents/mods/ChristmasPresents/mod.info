@@ -1,3 +1,10 @@
 id=ChristmasPresents
 name=Christmas Presents
+description=Allows wrapping items into Christmas presents for your fellow survivors. Merry Christmas!
+poster=poster.png
+poster=wrap.png
+poster=open.png
+poster=shops.png
+poster=crafting.png
 require=StarlitLibrary
+authors=albion,chloe,teha
