@@ -1,5 +1,5 @@
 version=1
-id=
+id=3389880972
 title=[B41] Christmas Presents
 description=Adds wrapping paper that can be used to wrap presents for your fellow survivors. Wrapping paper can be found in toy shops or crafted with paper, crayons and tape.
 description=
