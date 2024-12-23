@@ -10,4 +10,4 @@ description=Item icons by [url=https://steamcommunity.com/id/TehaGP]teha[/url]
 description=
 description=[url=https://github.com/demiurgeQuantified/ChristmasPresents]View on GitHub[/url]
 tags=Build 41;Items;Misc;Multiplayer;Silly/Fun
-visibility=unlisted
+visibility=public
