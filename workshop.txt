@@ -1,1 +1,13 @@
-Name=Christmas Presents
+version=1
+id=
+title=[B41] Christmas Presents
+description=Adds wrapping paper that can be used to wrap presents for your fellow survivors. Wrapping paper can be found in toy shops or crafted with paper, crayons and tape.
+description=
+description=[h2]Credits[/h2]
+description=Programmed by [url=https://steamcommunity.com/id/demiurgeQuantified]albion[/url]
+description=Item models and textures by [url=https://steamcommunity.com/id/bridgebucket]chloe[/url]
+description=Item icons by [url=https://steamcommunity.com/id/TehaGP]teha[/url]
+description=
+description=[url=https://github.com/demiurgeQuantified/ChristmasPresents]View on GitHub[/url]
+tags=Build 41;Items;Misc;Multiplayer;Silly/Fun
+visibility=unlisted
