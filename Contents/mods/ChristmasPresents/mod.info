@@ -8,3 +8,5 @@ poster=shops.png
 poster=crafting.png
 require=StarlitLibrary
 authors=albion,chloe,teha
+versionMin=41.78.16
+modversion=1.0.0
